@@ -15,5 +15,14 @@ class CategoryRepository(ABC): #Precisa definir a interface
     @abstractmethod
     def get_by_id(self, id: UUID) -> Category | None:
         raise NotImplementedError
+    
+    @abstractmethod
+    def delete(self, id: UUID) -> None:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def update(self, category: Category) -> None:
+        raise NotImplementedError
+    
 
    
