@@ -7,7 +7,8 @@ from src.core.category.application.use_cases.exceptions import CategoryNotFound
 @dataclass
 class UpdateCategoryRequest:
     id: UUID
-    name: str
+    name: str | None = None
+    description: str | None = None
 
 class UpdateCategory:
     def __init__(self,repository: CategoryRepository):
@@ -18,8 +19,22 @@ class UpdateCategory:
         category = self.repository.get_by_id(id=request.id)
         if category is None:
             raise CategoryNotFound(f"Category with id {request.id} not found")
+
+        current_name = category.name
+        current_description = category.description
+
+        if request.name is not None:
+           current_name = request.name
         
-        category.name = request.name
+        if request.description is not None:
+            current_description = request.description
+
+        category.update_category(
+            name=current_name, 
+            description=current_description
+        
+        )
+        
 
         self.repository.update(category)
         

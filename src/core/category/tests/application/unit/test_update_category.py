@@ -16,7 +16,7 @@ class TestUpdateCategory:
         )
 
         mock_repository = create_autospec(CategoryRepository)
-        mock_repository.get_by_id. return_value = mock_category
+        mock_repository.get_by_id.return_value = mock_category
 
         use_case = UpdateCategory(repository=mock_repository)
         #A atualização será realizado logo abaixo
@@ -25,7 +25,7 @@ class TestUpdateCategory:
             name="Serie",
         )
 
-        response =use_case.execute(request)
+        use_case.execute(request)
 
         assert mock_category.name == "Serie"
         #Com isso garatimos que atuyalizou o nome da categoria, mas pode adiciona como que garanta que a descrição não mude
@@ -36,7 +36,33 @@ class TestUpdateCategory:
         
 
     def test_update_category_description(self):
-        pass
+         
+        mock_category = Category(
+            id=uuid.uuid4(),
+            name="Filme",
+            description="Categoria para filmes",
+            is_active=True,
+        )
+
+        mock_repository = create_autospec(CategoryRepository)
+        mock_repository.get_by_id.return_value = mock_category
+
+        use_case = UpdateCategory(repository=mock_repository)
+        #A atualização será realizado logo abaixo
+        request = UpdateCategoryRequest(
+            id=mock_category.id,
+            description="Categoria para series",
+        )
+
+        use_case.execute(request)
+
+        #assert é o que quer no final
+        assert mock_category.name == "Filme"
+        #Com isso garatimos que atuyalizou o nome da categoria, mas pode adiciona como que garanta que a descrição não mude
+        assert mock_category.description == "Categoria para series"
+
+        #Faltou garanti que meu repositorio esta sendo chamado para atualiza minha categoria
+        mock_repository.update.assert_called_once_with(mock_category)
 
     def test_can_deactivate_category(self):
         pass
