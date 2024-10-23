@@ -19,7 +19,7 @@ class TestUpdateCategory:
         mock_repository.get_by_id.return_value = mock_category
 
         use_case = UpdateCategory(repository=mock_repository)
-        #A atualização será realizado logo abaixo
+        
         request = UpdateCategoryRequest(
             id=mock_category.id,
             name="Serie",
@@ -28,10 +28,10 @@ class TestUpdateCategory:
         use_case.execute(request)
 
         assert mock_category.name == "Serie"
-        #Com isso garatimos que atuyalizou o nome da categoria, mas pode adiciona como que garanta que a descrição não mude
+       
         assert mock_category.description == "Categoria para filmes"
 
-        #Faltou garanti que meu repositorio esta sendo chamado para atualiza minha categoria
+        
         mock_repository.update.assert_called_once_with(mock_category)
         
 
@@ -48,7 +48,7 @@ class TestUpdateCategory:
         mock_repository.get_by_id.return_value = mock_category
 
         use_case = UpdateCategory(repository=mock_repository)
-        #A atualização será realizado logo abaixo
+        
         request = UpdateCategoryRequest(
             id=mock_category.id,
             description="Categoria para series",
@@ -56,12 +56,11 @@ class TestUpdateCategory:
 
         use_case.execute(request)
 
-        #assert é o que quer no final
+        
         assert mock_category.name == "Filme"
-        #Com isso garatimos que atuyalizou o nome da categoria, mas pode adiciona como que garanta que a descrição não mude
+       
         assert mock_category.description == "Categoria para series"
 
-        #Faltou garanti que meu repositorio esta sendo chamado para atualiza minha categoria
         mock_repository.update.assert_called_once_with(mock_category)
 
     def test_can_deactivate_category(self):
