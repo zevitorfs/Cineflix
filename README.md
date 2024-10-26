@@ -10,8 +10,8 @@ A arquitetura do projeto foi desenhada de acordo com o DDD (Domain-Driven Design
 
 ## Requisitos
 
-- **Python 3.8+**
-- **Django 4.0+**
+- **Python 3.12+**
+- **Django 5.0+**
 - **Django REST Framework** para a construção da API RESTful.
 - **PostgreSQL** (ou outro banco de dados conforme configuração).
 - **Docker** (opcional, para desenvolvimento e testes em container).
