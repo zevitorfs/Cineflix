@@ -23,6 +23,9 @@ class CategoryRepository(ABC): #Precisa definir a interface
     @abstractmethod
     def update(self, category: Category) -> None:
         raise NotImplementedError
+    @abstractmethod
+    def list(self) -> List[Category]:
+        raise NotImplementedError
     
 
    

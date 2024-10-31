@@ -20,7 +20,15 @@ class InMemoryCategoryRepository(CategoryRepository):
         category= self.get_by_id(id)
         self.categories.remove(category)
     
-    def update(self, category):
-        pass
+    def update(self, category: Category) -> None:
+        old_category = self.get_by_id(category.id)
+        if old_category:
+            self.delete(category.id)
+            self.save(category)
+    
+    def list(self) -> list[Category]:
+        # Retorna isso usar alist conprehension para cria uma copiad da lista com isso pessoa de for anão pode altera lista
+        return [category for category in self.categories]
+        
 
    
